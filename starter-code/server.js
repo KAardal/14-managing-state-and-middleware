@@ -7,8 +7,8 @@ const bodyParser = require('body-parser');
 const requestProxy = require('express-request-proxy'); // REVIEW: We've added a new package here to our requirements, as well as in the package.json
 const PORT = process.env.PORT || 3000;
 const app = express();
-// const conString = 'postgres://USERNAME:PASSWORD@HOST:PORT';
-const conString = ''; // TODO: Don't forget to set your own conString
+const conString = 'postgres://postgres:1234@localhost:5432/kilovolt';
+//const conString = ''; // TODO: Don't forget to set your own conString
 const client = new pg.Client(conString);
 client.connect();
 client.on('error', err => console.error(err));
@@ -18,9 +18,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
 
-// COMMENT: What is this function doing? Why do we need it? Where does it receive a request from?
-// (put your response in a comment here)
-function proxyGitHub(request, response) {
+// DONE: What is this function doing? Why do we need it? Where does it receive a request from?
+//This function is requesting the github user name from the github API and appends it to the end of the url. Then requests the token for that user and
+// appends it to the header. Once the request is made it console.logs routing github request for the user name. The request proxy send the request to the API which responds with the data.
   console.log('Routing GitHub request for', request.params[0]);
   (requestProxy({
     url: `https://api.github.com/${request.params[0]}`,
@@ -29,8 +29,8 @@ function proxyGitHub(request, response) {
 }
 
 
-// COMMENT: What is this route doing? Where does it receive a request from?
-// (put your response in a comment here)
+// DONE: What is this route doing? Where does it receive a request from?
+// This route handles the client side routing to the new article page. It recieves it's request from the address bar.
 app.get('/new', (request, response) => response.sendFile('new.html', {root: './public'}));
 app.get('/admin', (request, response) => response.sendFile('admin.html', {root: './public'}));
 app.get('/github/*', proxyGitHub);
@@ -106,8 +106,9 @@ app.post('/articles', function(request, response) {
 });
 
 
-// COMMENT: What is this route doing? Where does it receive a request from?
-// (put your response in a comment here)
+// DONE: What is this route doing? Where does it receive a request from?
+// This route updates an authors name in the authors tables, and aslo updates their name on every article they have written in the articles table.
+// It recieves the request from the address bar.
 app.put('/articles/:id', (request, response) => {
   client.query(`
     UPDATE authors

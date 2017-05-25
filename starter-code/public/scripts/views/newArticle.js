@@ -4,7 +4,8 @@ var app = app || {};
 (function(module) {
   const newArticle = {};
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // DONE: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // This function shows all elements with the class .tab-content. Hides the element with the ID of #export-field. Creates an on focus event listener for the element with the ID of #article-json. And creates on change and on submit listeners for the element with the ID of #new-form. It is called at the bottom of this file. It calls newArticle.create and newArticle.submit.
   newArticle.initNewArticlePage = function() {
     $('.tab-content').show();
     $('#export-field').hide();
