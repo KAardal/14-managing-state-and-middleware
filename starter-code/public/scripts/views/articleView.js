@@ -4,7 +4,8 @@ var app = app || {};
 (function(module) {
   const articleView = {};
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // DONE: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // This function creates an article template for each article object, displays the number of days since the article was published, or if the article has not been published sets it as a draft. It then passes the article through the marked.js library, and returns the modified template.
   const render = function(article) {
     let template = Handlebars.compile($('#article-template').text());
 
